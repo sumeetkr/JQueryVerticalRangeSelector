@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css"/>
+    <link href="verticalSlider.css" rel="stylesheet" type="text/css"/>
+    <link href="jquery.ui.datepicker.mobile.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .ui-slider-verticalInverted .ui-btn-inner {
+            padding: 3px 0 0 0 !important;
+            font-size: .8em;
+            height: 24px;
+        }
+
+        .ui-slider-popup {
+            position: absolute !important;
+            width: 70px;
+            height: 32px;
+            text-align: center;
+            font-size: 16px;
+            padding-top: 8px;
+            z-index: 100;
+            opacity: 0.8;
+        }
+
+        .ui-slider-input {
+            visibility: hidden !important;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="JQueryTooltipExtension.js"></script>
+    <script src="verticalSlider.js"></script>
+    <script>src = "datepicker.js"</script>
+    <script type="text/javascript">
+
+        var pageHeight = $(document).height();
+
+        function initialize() {
+            addGoogleMap();
+        }
+
+        function addGoogleMap() {
+            var latlng = new google.maps.LatLng(40.77627, -73.910965);
+            var mapOptions = {
+                zoom:8,
+                center:latlng,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+                    mapOptions);
+            //drawPath(1359360000000, 1359446400000, 582, map)
+        }
+
+        //reset type=date inputs to text
+        $(document).bind("mobileinit", function () {
+            $.mobile.page.prototype.options.degradeInputs.date = true;
+        });
+
+    </script>
+    <script src="datepicker.mobile.js"></script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas"
+     style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0;">
+</div>
+
+<div style="position: fixed; top: -4px; right: 50%; width: 120px;">
+    <input type="date" name="date" id="date" value=""/>
+</div>
+
+<div id="slider" style="position: fixed; top: 10px; right: 0px; height: 85%;">
+    <input type="range" name="range-2a" id="range-2a" min="0" max="1440" value="1200" step="5"
+           sliderOrientation="verticalInverted" data-show-value="true" data-mini="true"
+           data-popup-enabled="true" class="ui-slider-input ui-input-text ui-body-c ui-corner-all ui-shadow-inset"/>
+    <input type="range" name="range-2b" id="range-2b" min="0" max="1440" value="400" step="5"
+           sliderOrientation="verticalInverted" data-show-value="true" data-mini="true"
+           data-popup-enabled="true" class="ui-slider-input ui-input-text ui-body-c ui-corner-all ui-shadow-inset"/>
+</div>
+
+</body>
+</html>
